@@ -1,1 +1,1 @@
-[Section 4 from Udemy Course: React Native the Practical Guide](https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/31197456#overview)
+[Section 4](https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/31197456#overview) and [Section 5](https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/31197574#overview) from Udemy Course: React Native the Practical Guide
