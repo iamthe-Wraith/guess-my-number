@@ -8,6 +8,7 @@ import { StartGameScreen } from './screens/StartGameScreen';
 import { theme } from './styles/theme';
 import { GameScreen } from './screens/GameScreen';
 import { GameOverScreen } from './screens/GameOverScreen';
+import { StatusBar } from 'expo-status-bar';
 
 interface IGameStats {
   won: boolean;
@@ -92,24 +93,27 @@ export default function App() {
   if (!appIsReady) return null;
 
   return (
-    <LinearGradient
-      colors={ [theme.colors.primary[300], theme.colors.secondary[400]] }
-      style={ styles.container }
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onLayout={ onLayoutRootView }
-    >
-      <ImageBackground
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        source={ require('./assets/images/background.png') }
-        resizeMode='cover'
+    <>
+      <StatusBar style='light' />
+      <LinearGradient
+        colors={ [theme.colors.primary[300], theme.colors.secondary[400]] }
         style={ styles.container }
-        imageStyle={ { opacity: 0.15 } }
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onLayout={ onLayoutRootView }
       >
-        <SafeAreaView style={ styles.container }>
-          { renderScreen() }
-        </SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+        <ImageBackground
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          source={ require('./assets/images/background.png') }
+          resizeMode='cover'
+          style={ styles.container }
+          imageStyle={ { opacity: 0.15 } }
+        >
+          <SafeAreaView style={ styles.container }>
+            { renderScreen() }
+          </SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 }
 

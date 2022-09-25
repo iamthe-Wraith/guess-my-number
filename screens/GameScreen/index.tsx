@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, Alert, FlatList, ListRenderItem } from 'react-native';
+import { View, Text, Alert, FlatList, ListRenderItem, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { PrimaryButton } from '../../components/buttons/PrimaryButton';
 import { GuessContaier } from '../../components/game/GuessContainer';
@@ -77,32 +77,34 @@ export const GameScreen: FC<IProps> = ({ userNumber, onGameOver }) => {
   };
 
   return (
-    <View style={ styles.container }>
-      <Title>Opponent's Guess</Title>
-      <GuessContaier guess={ currentGuess } />
-      <View>
-        <Text style={ styles.text }>Higher or Lower?</Text>
-        <View style={ styles.buttonsContainer }>
-          <PrimaryButton
-            onPress={ onHintPress(Hint.LOWER) }
-            style={ styles.button }
-          >
-            <Ionicons name='md-remove' size={ 24 } color='white' />
-          </PrimaryButton>
-          <PrimaryButton
-            onPress={ onHintPress(Hint.HIGHER) }
-            style={ styles.button }
-          >
-            <Ionicons name='md-add' size={ 24 } color='white' />
-          </PrimaryButton>
+    <ScrollView style={ styles.screen }>
+      <View style={ styles.container }>
+        <Title>Opponent's Guess</Title>
+        <GuessContaier guess={ currentGuess } />
+        <View>
+          <Text style={ styles.text }>Higher or Lower?</Text>
+          <View style={ styles.buttonsContainer }>
+            <PrimaryButton
+              onPress={ onHintPress(Hint.LOWER) }
+              style={ styles.button }
+            >
+              <Ionicons name='md-remove' size={ 24 } color='white' />
+            </PrimaryButton>
+            <PrimaryButton
+              onPress={ onHintPress(Hint.HIGHER) }
+              style={ styles.button }
+            >
+              <Ionicons name='md-add' size={ 24 } color='white' />
+            </PrimaryButton>
+          </View>
         </View>
+        <FlatList
+          style={ styles.rounds }
+          data={ guessRounds }
+          keyExtractor={ item => item.toString() }
+          renderItem={ renderRound }
+        />
       </View>
-      <FlatList
-        style={ styles.rounds }
-        data={ guessRounds }
-        keyExtractor={ item => item.toString() }
-        renderItem={ renderRound }
-      />
-    </View>
+    </ScrollView>
   );
 };

@@ -26,7 +26,6 @@ export const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: 'center',
-    marginTop: 40,
     marginHorizontal: 24,
     padding: 16,
     borderRadius: 8,
@@ -36,6 +35,9 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 }, // ios only
     shadowRadius: 6, // ios only
     shadowOpacity: 0.25, // ios only
+  },
+  screen: {
+    flex: 1,
   },
   text: {
     fontFamily: 'open-sans',

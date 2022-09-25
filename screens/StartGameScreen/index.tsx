@@ -1,5 +1,5 @@
 import { FC, useCallback, useState } from 'react';
-import { View, Text, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, Alert, useWindowDimensions, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { PrimaryButton } from '../../components/buttons/PrimaryButton';
 import { Title } from '../../components/Title';
 import { styles } from './styles';
@@ -10,6 +10,7 @@ interface IProps {
 
 export const StartGameScreen: FC<IProps> = ({ onStart }) => {
   const [number, setNumber] = useState('');
+  const { height: windowHeight } = useWindowDimensions();
 
   const onConfirmPress = useCallback(() => {
     const chosenNumber = parseInt(number);
@@ -31,35 +32,40 @@ export const StartGameScreen: FC<IProps> = ({ onStart }) => {
   }, []);
 
   return (
-    <View style={ styles.container }>
-      <Title>Guess My Number</Title>
-      <View style={ styles.inputContainer }>
-        <Text style={ styles.text }>Enter a Number:</Text>
-        <TextInput
-          style={ styles.input }
-          maxLength={ 2 }
-          keyboardType='number-pad'
-          autoFocus
-          autoCapitalize='none'
-          autoCorrect={ false }
-          onChangeText={ onChange }
-          value={ number }
-        />
-        <View style={ styles.buttonContainer }>
-          <PrimaryButton
-            onPress={ onResetPress }
-            style={ styles.button }
-          >
+    <ScrollView style={ styles.screen }>
+      { /* <KeyboardAvoidingView style={ styles.screen } behavior={ Platform.OS === 'android' ? 'height' : 'position' }> // alt method*/ }
+      <KeyboardAvoidingView style={ styles.screen } behavior={ Platform.select({ ios: 'position', android: 'height' }) }>
+        <View style={ styles.container }>
+          <Title>Guess My Number</Title>
+          <View style={ [styles.inputContainer, { marginTop: windowHeight < 450 ? 20 : 70 }] }>
+            <Text style={ styles.text }>Enter a Number:</Text>
+            <TextInput
+              style={ styles.input }
+              maxLength={ 2 }
+              keyboardType='number-pad'
+              autoFocus
+              autoCapitalize='none'
+              autoCorrect={ false }
+              onChangeText={ onChange }
+              value={ number }
+            />
+            <View style={ styles.buttonContainer }>
+              <PrimaryButton
+                onPress={ onResetPress }
+                style={ styles.button }
+              >
             Reset
-          </PrimaryButton>
-          <PrimaryButton
-            onPress={ onConfirmPress }
-            style={ styles.button }
-          >
+              </PrimaryButton>
+              <PrimaryButton
+                onPress={ onConfirmPress }
+                style={ styles.button }
+              >
             Confirm
-          </PrimaryButton>
+              </PrimaryButton>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };

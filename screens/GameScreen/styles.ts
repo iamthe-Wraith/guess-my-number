@@ -34,6 +34,9 @@ export const styles = StyleSheet.create({
   roundText: {
     fontSize: 18,
   },
+  screen: {
+    flex: 1,
+  },
   text: {
     marginBottom: 12,
     color: '#fff',
